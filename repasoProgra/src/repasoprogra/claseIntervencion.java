@@ -45,21 +45,21 @@ public class claseIntervencion {
     }
 
     // el con toas las cosas
-    public claseIntervencion(String anio, String mes, String distrito, int fuegos,
-            int daniosConstruc, int salvamentoRescates, int daniosAgua,
-            int incidentesDiversos, int salidasSinIntervencion, 
-            int serviciosVarios, int total) {
+    public claseIntervencion(String anio, String mes, String distrito, String fuegos,
+            String daniosConstruc, String salvamentoRescates, String daniosAgua,
+            String incidentesDiversos, String salidasSinIntervencion, 
+            String serviciosVarios, String total) {
         this.anio = anio;
         this.mes = mes;
         this.distrito = distrito;
-        this.fuegos = fuegos;
-        this.daniosConstruc = daniosConstruc;
-        this.salvamentoRescates = salvamentoRescates;
-        this.daniosAgua = daniosAgua;
-        this.incidentesDiversos = incidentesDiversos;
-        this.salidasSinIntervencion = salidasSinIntervencion;
-        this.serviciosVarios = serviciosVarios;
-        this.total = total;
+        this.fuegos = Integer.parseInt(fuegos) ;
+        this.daniosConstruc = Integer.parseInt(daniosConstruc) ;
+        this.salvamentoRescates =  Integer.parseInt(salvamentoRescates);
+        this.daniosAgua = Integer.parseInt(daniosAgua);
+        this.incidentesDiversos = Integer.parseInt(incidentesDiversos);
+        this.salidasSinIntervencion = Integer.parseInt(salidasSinIntervencion);
+        this.serviciosVarios = Integer.parseInt(serviciosVarios);
+        this.total = Integer.parseInt(total);
     }
 
     /////////////////////////////////////
