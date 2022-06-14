@@ -18,17 +18,17 @@ public class claseIntervencion {
     columna, en total son 11 apartados(columnas). Vamos a declarar cada apartado
     como una variable. 11 variables en total
      */
-    private String anio;
-    private String mes;
-    private String distrito;
-    private int fuegos;
-    private int daniosConstruc;
-    private int salvamentoRescates;
-    private int daniosAgua;
-    private int incidentesDiversos;
-    private int salidasSinIntervencion;
-    private int serviciosVarios;
-    private int total;
+    private String anio="";
+    private String mes="";
+    private String distrito="";
+    private int fuegos=0;
+    private int daniosConstruc=0;
+    private int salvamentoRescates=0;
+    private int daniosAgua=0;
+    private int incidentesDiversos=0;
+    private int salidasSinIntervencion=0;
+    private int serviciosVarios=0;
+    private int total=0;
 
     /////////////////////////////////////
     //CONSTRUCTORES/////////////////////////////////////////////////////////////

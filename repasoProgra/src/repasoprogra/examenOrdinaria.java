@@ -171,6 +171,7 @@ public class examenOrdinaria {
                 intervencionBase.setTotal(intervencion.getTotal());
             }//fin if
         }//fin for
+        
         for (int i = 1; i < intervencionesPorMesyAnio.size(); i++) {
             System.out.println(intervencionesPorMesyAnio.get(i).getAnio() + " " + intervencionesPorMesyAnio.get(i).getMes() + " : " + (intervencionesPorMesyAnio.get(i).getTotal() / 22));
         }
@@ -198,19 +199,27 @@ public class examenOrdinaria {
 
             System.out.println("Por favor inserte un distrito");
             String nombreDistrito = leer.nextLine();
-            if(lista.containsKey(nombreDistrito.toUpperCase())){
-                System.out.println("El distrito "+nombreDistrito.toUpperCase()+" tuvo: "+lista.get(nombreDistrito.toUpperCase())+" incidentes.");
-                cierto=false;
-            }else{
+            if (lista.containsKey(nombreDistrito.toUpperCase())) {
+                System.out.println("El distrito " + nombreDistrito.toUpperCase() + " tuvo: " + lista.get(nombreDistrito.toUpperCase()) + " incidentes.");
+                cierto = false;
+            } else {
                 System.out.println("Ese distrito no existe, vuelva a insertar un distrito.");
             }//fin if
         }//fin while
     }//fin calcularIntervencionesPorDistrito
-
     //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    //************************************************************************************************************************
+    
     /////////////////////////////////////
     //MAIN//////////////////////////////////////////////////////////////////////
     /////////////////////////////////////
+
     public static void main(String[] args) {
         // TODO code application logic here
 
@@ -230,7 +239,7 @@ public class examenOrdinaria {
             //código se lee en otro pc y las rutas de guardado cambian
             String ruta = System.getProperty("user.dir");
 
-            File carpetaBomberos = new File(ruta + File.separator + "sources" + File.separator + "Bomberos");
+            File carpetaBomberos = new File(ruta + File.separator + "Bomberos");
             /*
             con el listFiles() lo que hacemos es listar el contenido de la carpeta
             bomberos la cual contiene 6 excels (de 2017 a 2022). Lo metemos en un 
@@ -245,9 +254,11 @@ public class examenOrdinaria {
                 if (ficheroPorAnio.exists()) {//inicio if 1
                     //lo leemos con el Scanner
                     leer = new Scanner(ficheroPorAnio);
+                    System.out.println(ficheroPorAnio.getAbsolutePath());
                     //le decimos al Scanner que cada vez que vea un ';' va a cortar esa línea más adelante con el split
                     leer.useDelimiter(";");
                     //mientras tenga algo que leer...
+        
                     while (leer.hasNext()) {
                         //hacemos un Array de tipo String para que me vaya metiendo cada linea que corta cuando ve un ';' 
                         String[] linea = leer.nextLine().split(";");
@@ -270,6 +281,14 @@ public class examenOrdinaria {
                 }//fin if 1
             }//fin for-each
 
+            //intervencionConMas_y_MenosSalidas(columnasIntervenciones);
+            //System.out.println("");
+            //claseIntervencion intervencion2=intervencionConMenosSalidas(columnasIntervenciones);
+            //System.out.println(intervencion2.toString());
+            System.out.println("");
+            calcularIntervencionesMediasMesAnio(columnasIntervenciones);
+            System.out.println("");
+            //calcularIntervencionesPorDistrito(columnasIntervenciones);
         } catch (FileNotFoundException ex) {
             ex.getMessage();
         }
