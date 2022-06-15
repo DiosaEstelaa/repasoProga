@@ -90,9 +90,12 @@ public class examenOrdinaria {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static claseIntervencion intervencionConMenosSalidas(ArrayList<claseIntervencion> columnasIntervenciones_F) {
+        //variables
         int numMenor = 10;
         int numControl;
+        //objeto de tipo intervención
         claseIntervencion laIntervencion = new claseIntervencion();
+        //for-each para que me lea cada intervencion del ArrayList ' columnasIntervenciones_F '
         for (claseIntervencion intervencion : columnasIntervenciones_F) {
             numControl = numMenor;
             if (intervencion.getFuegos() < numMenor) {
@@ -171,7 +174,7 @@ public class examenOrdinaria {
                 intervencionBase.setTotal(intervencion.getTotal());
             }//fin if
         }//fin for
-        
+
         for (int i = 1; i < intervencionesPorMesyAnio.size(); i++) {
             System.out.println(intervencionesPorMesyAnio.get(i).getAnio() + " " + intervencionesPorMesyAnio.get(i).getMes() + " : " + (intervencionesPorMesyAnio.get(i).getTotal() / 22));
         }
@@ -215,11 +218,10 @@ public class examenOrdinaria {
     //************************************************************************************************************************
     //************************************************************************************************************************
     //************************************************************************************************************************
-    
+
     /////////////////////////////////////
     //MAIN//////////////////////////////////////////////////////////////////////
     /////////////////////////////////////
-
     public static void main(String[] args) {
         // TODO code application logic here
 
@@ -238,7 +240,7 @@ public class examenOrdinaria {
             //proyecto donde estamos trabajando. Esto es bueno para cuando el 
             //código se lee en otro pc y las rutas de guardado cambian
             String ruta = System.getProperty("user.dir");
-
+            //esto es para que mire dento de la carpeta bomberos que está en el proyecto
             File carpetaBomberos = new File(ruta + File.separator + "Bomberos");
             /*
             con el listFiles() lo que hacemos es listar el contenido de la carpeta
@@ -254,15 +256,15 @@ public class examenOrdinaria {
                 if (ficheroPorAnio.exists()) {//inicio if 1
                     //lo leemos con el Scanner
                     leer = new Scanner(ficheroPorAnio);
+                    //esto lo pongo para saber si me está leyendo la ruta de los 6 documentos y lo muestre por pantalla
                     System.out.println(ficheroPorAnio.getAbsolutePath());
                     //le decimos al Scanner que cada vez que vea un ';' va a cortar esa línea más adelante con el split
                     leer.useDelimiter(";");
                     //mientras tenga algo que leer...
-        
+
                     while (leer.hasNext()) {
                         //hacemos un Array de tipo String para que me vaya metiendo cada linea que corta cuando ve un ';' 
                         String[] linea = leer.nextLine().split(";");
-                        //mayor que 2 para asegurarnos que tien cosas escritas
                         if (linea.length > 2) {//inicio if 2
                             /*
                             con ' !linea[9].equals("SERVICIOS VARIOS") ' mos aseguramos que haya hecho bien la partición
@@ -281,14 +283,20 @@ public class examenOrdinaria {
                 }//fin if 1
             }//fin for-each
 
-            //intervencionConMas_y_MenosSalidas(columnasIntervenciones);
-            //System.out.println("");
-            //claseIntervencion intervencion2=intervencionConMenosSalidas(columnasIntervenciones);
-            //System.out.println(intervencion2.toString());
+            //mostrar resultados con las funciones
+            System.out.println("--------------------------------------------------------------------------------------");
             System.out.println("");
+            intervencionConMas_y_MenosSalidas(columnasIntervenciones);
+            System.out.println("");
+            System.out.println("--------------------------------------------------------------------------------------");
+            claseIntervencion intervencion2 = intervencionConMenosSalidas(columnasIntervenciones);
+            System.out.println(intervencion2.toString());
+            System.out.println("");
+            System.out.println("--------------------------------------------------------------------------------------");
             calcularIntervencionesMediasMesAnio(columnasIntervenciones);
             System.out.println("");
-            //calcularIntervencionesPorDistrito(columnasIntervenciones);
+            System.out.println("--------------------------------------------------------------------------------------");
+            calcularIntervencionesPorDistrito(columnasIntervenciones);
         } catch (FileNotFoundException ex) {
             ex.getMessage();
         }

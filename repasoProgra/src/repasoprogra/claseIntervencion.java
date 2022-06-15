@@ -49,6 +49,7 @@ public class claseIntervencion {
             String daniosConstruc, String salvamentoRescates, String daniosAgua,
             String incidentesDiversos, String salidasSinIntervencion, 
             String serviciosVarios, String total) {
+        //por defecto quitando anio,mes y distrito, los demás eran int, pero para que no diera problema en el main lo declaro como String y parseo a int
         this.anio = anio;
         this.mes = mes;
         this.distrito = distrito;
