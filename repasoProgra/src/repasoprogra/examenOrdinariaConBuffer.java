@@ -5,8 +5,11 @@
  */
 package repasoprogra;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,12 +19,14 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import static java.util.stream.Collectors.toMap;
 import java.util.stream.Stream;
+import static javaordinariarepaso.JavaOrdinariaRepaso.leer;
+import javaordinariarepaso.Registro;
 
 /**
  *
  * @author estel
  */
-public class examenOrdinaria {
+public class examenOrdinariaConBuffer {
 
     /**
      * @param args the command line arguments
@@ -47,7 +52,48 @@ public class examenOrdinaria {
     /////////////////////////////////////
     //FUNCIONES/MÉTODOS/////////////////////////////////////////////////////////
     /////////////////////////////////////
-    
+    public static ArrayList<claseIntervencion> leer(File f) throws FileNotFoundException, IOException {
+        ArrayList<claseIntervencion> registros = new ArrayList<claseIntervencion>();
+        for (File file : f.listFiles()) {
+
+            if (file.isDirectory()) {
+                System.out.println(file.getName());
+            } else {
+
+                try {
+
+                    FileReader fr = new FileReader(file);
+                    BufferedReader bf = new BufferedReader(fr);
+                    String datos;
+
+                    while ((datos = bf.readLine()) != null) {
+                        String[] celdas = datos.split(";");
+                        if (celdas.length > 1) {
+                            if (!celdas[3].equals("FUEGOS")) {
+                                claseIntervencion r1 = new claseIntervencion(celdas[0], celdas[1], celdas[2], celdas[3], celdas[4], celdas[5], celdas[6], celdas[7], celdas[8], celdas[9], celdas[10]);
+                                registros.add(r1);
+                                //System.out.println(registros);
+                            }
+                        }
+
+                        /*                      
+                        for (String celda : celdas) {
+                            System.out.print(celda + " ");
+                        }
+                        System.out.print("\n -----------------------------------  \n");
+                         */                        //System.out.println(datos);
+                    }
+                    fr.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return registros;
+    }
+
     public static void intervencionConMas_y_MenosSalidas(ArrayList<claseIntervencion> columnasIntervenciones_F) {
         //lo que hacemos aquí es usar un Map para guardar el nombre de la intervención y cantidad iniciada a 0
         Map<String, Integer> mapaIncidentes = Stream.of(
@@ -184,17 +230,17 @@ public class examenOrdinaria {
 
     public static void calcularIntervencionesPorDistrito(ArrayList<claseIntervencion> columnasIntervencions_F) {
         claseIntervencion intervencionBase = new claseIntervencion();
-        HashMap<String, Integer> mapaLista = new HashMap<String, Integer>();
+        HashMap<String, Integer> lista = new HashMap<String, Integer>();
         String nombre;
         int totalIntervenciones;
         for (claseIntervencion intervencion : columnasIntervencions_F) {
             nombre = intervencion.getDistrito();
             totalIntervenciones = intervencion.getTotal();
-            if (mapaLista.containsKey(nombre)) {
-                int intervencionesPrevias = mapaLista.get(nombre);
-                mapaLista.replace(nombre, (totalIntervenciones + intervencionesPrevias));
+            if (lista.containsKey(nombre)) {
+                int intervencionesPrevias = lista.get(nombre);
+                lista.replace(nombre, (totalIntervenciones + intervencionesPrevias));
             } else {
-                mapaLista.put(nombre, totalIntervenciones);
+                lista.put(nombre, totalIntervenciones);
             }
         }//fin for
         boolean cierto = true;
@@ -203,8 +249,8 @@ public class examenOrdinaria {
 
             System.out.println("Por favor inserte un distrito");
             String nombreDistrito = leer.nextLine();
-            if (mapaLista.containsKey(nombreDistrito.toUpperCase())) {
-                System.out.println("El distrito " + nombreDistrito.toUpperCase() + " tuvo: " + mapaLista.get(nombreDistrito.toUpperCase()) + " incidentes.");
+            if (lista.containsKey(nombreDistrito.toUpperCase())) {
+                System.out.println("El distrito " + nombreDistrito.toUpperCase() + " tuvo: " + lista.get(nombreDistrito.toUpperCase()) + " incidentes.");
                 cierto = false;
             } else {
                 System.out.println("Ese distrito no existe, vuelva a insertar un distrito.");
@@ -223,10 +269,10 @@ public class examenOrdinaria {
     /////////////////////////////////////
     //MAIN//////////////////////////////////////////////////////////////////////
     /////////////////////////////////////
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
 
-        Scanner leer = new Scanner(System.in);
+        Scanner leer1 = new Scanner(System.in);
 
         /*
         trabajamos con el excel de bomberos donde hay once columnas. Vamos a meter
@@ -242,47 +288,8 @@ public class examenOrdinaria {
             //código se lee en otro pc y las rutas de guardado cambian
             String ruta = System.getProperty("user.dir");
             //esto es para que mire dento de la carpeta bomberos que está en el proyecto
-            File carpetaBomberos = new File(ruta + File.separator + "Bomberos");
-            /*
-            con el listFiles() lo que hacemos es listar el contenido de la carpeta
-            bomberos la cual contiene 6 excels (de 2017 a 2022). Lo metemos en un 
-            Array que llamamos listaDeArchivos
-             */
-            File[] listaDeArchivos = carpetaBomberos.listFiles();
-            //una vez tenemos listados nuestros 6 excels los vamos a leer con un for-each
-            for (File archivo : listaDeArchivos) {
-                //ahora creamos un nuevo File para dividirlos por año
-                File ficheroPorAnio = new File(archivo.getPath());
-                //sin el fichero existe...
-                if (ficheroPorAnio.exists()) {//inicio if 1
-                    //lo leemos con el Scanner
-                    leer = new Scanner(ficheroPorAnio);
-                    //esto lo pongo para saber si me está leyendo la ruta de los 6 documentos y lo muestre por pantalla
-                    System.out.println(ficheroPorAnio.getAbsolutePath());
-                    //le decimos al Scanner que cada vez que vea un ';' va a cortar esa línea más adelante con el split
-                    leer.useDelimiter(";");
-                    //mientras tenga algo que leer...
-
-                    while (leer.hasNext()) {
-                        //hacemos un Array de tipo String para que me vaya metiendo cada linea que corta cuando ve un ';' 
-                        String[] linea = leer.nextLine().split(";");
-                        if (linea.length > 2) {//inicio if 2
-                            /*
-                            con ' !linea[9].equals("SERVICIOS VARIOS") ' mos aseguramos que haya hecho bien la partición
-                            porque habiendo 11 columnas, pero empezando el Array en '0', la última posición que nos interesa
-                            saber es la de "SERVICIOS VARIOS" que es la posición '9' (10 si no empiezas por 0).
-                             */
-                            if (!linea[9].equals("SERVICIOS VARIOS")) {//inicio if 3
-                                claseIntervencion intervencion = new claseIntervencion(linea[0], linea[1], linea[2],
-                                        linea[3], linea[4], linea[5], linea[6], linea[7], linea[8], linea[9], linea[10]);
-                                columnasIntervenciones.add(intervencion);
-                            }//fin if 3
-                        }//fin if 2
-                    }//fin while
-                    //muy importante cerrar el ficherodespués de usar para que no de errores mas adelante
-                    leer.close();
-                }//fin if 1
-            }//fin for-each
+            File carpetaBomberos = new File("C:\\Users\\DAW\\Desktop\\repasoProga\\repasoProgra\\Bomberos");
+            columnasIntervenciones = leer(carpetaBomberos);
 
             //mostrar resultados con las funciones
             System.out.println("--------------------------------------------------------------------------------------");
