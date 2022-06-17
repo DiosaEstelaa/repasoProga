@@ -288,7 +288,13 @@ public class examenOrdinariaConBuffer {
             //código se lee en otro pc y las rutas de guardado cambian
             String ruta = System.getProperty("user.dir");
             //esto es para que mire dento de la carpeta bomberos que está en el proyecto
-            File carpetaBomberos = new File("C:\\Users\\DAW\\Desktop\\repasoProga\\repasoProgra\\Bomberos");
+            //ordenador clase:
+            //File carpetaBomberos = new File("C:\\Users\\DAW\\Desktop\\repasoProga\\repasoProgra\\Bomberos");
+            
+            //ordenador casa
+            File carpetaBomberos = new File("C:\\Users\\estel\\Documents\\GitHub\\repasoProga\\repasoProgra\\Bomberos");
+
+                    
             columnasIntervenciones = leer(carpetaBomberos);
 
             //mostrar resultados con las funciones
