@@ -8,6 +8,7 @@ package repasoprogra;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  *
@@ -39,67 +40,69 @@ public class programame_ProcesandoEntrada {
     en la que debe aparecer el título de Sir. Si no hay ninguna se indicará 
     NINGUNA y si todas las obras fueron creadas cuando el autor ya contaba con 
     el título de caballero, se escribirá TODAS.
-    */
+     */
     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        /*InputStreamReader: clase que convierte de byte a carácter.
-        Existe la posibilidad de conectar el objeto System.in con un objeto de 
-        la clase InputStreamReader para leer los caracteres tecleados por el usuario.*/
-        InputStreamReader inPuSt = new InputStreamReader(System.in);
+        final Scanner leer = new Scanner(System.in);
 
-        //resulta que leer con Scanner es menos mejor así que usamos BufferReader
-        BufferedReader br = new BufferedReader(inPuSt);
+        //declaramos variables
+        String primeraObra;
+        boolean cadaUno;
+        int anio, anioMasReciente;
 
-        //declaramos como String la frase que introducimos (entrada) y la que recibimos (salidoa
-        String entrada, salida;
         /*
-        EJEMPLOS PALINDROMOS
+        Entrada de ejemplo
+        1902 Connan Doyle
+        3
+        1892 Las aventuras de Sherlock Holmes
+        1905 El retorno de Sherlock Holmes
+        1902 El sabueso de los Baskerville
+        2000 Sean Connery
+        3
+        1989 Indiana Jones y la ultima cruzada
+        1963 Desde Rusia con amor
+        1987 Los intocables de Eliot Ness
         
-        "No subas abusón"
-
-        "Oí lo de mamá: me dolió"
-
-        "Sometamos o matemos"
-
-        "Yo dono rosas oro no doy"
-
-        "Isaac no ronca así"
-
-        "Lavan esa base naval"
-
-        "No traces en ese cartón"
-
-        "¿Será lodo o dólares?"
+        Salida de ejemplo
+        El sabueso de los Baskerville
+        NINGUNA
          */
-        System.out.println("Introduce una cadena de carácteres: ");
-        //leemos nuestra frase introducida con el BufferedReader
-        entrada = br.readLine();
-        //mientras que la entrada se diferente de XXX
-        //"XXX" es como cuando en los menús poniamos que salir era igual a introducir ' 5 '
-        while (!entrada.equals("XXX")) {
-            //la hacemos mayúscula
-            entrada = entrada.toUpperCase();
-            //quitamos los espacios
-            entrada = entrada.replace(" ", "");
-            /*
-            .reverse()=
-            inPut (lo que entra) : abc
-            outPut (lo que sale) : cba
-             */
-            salida = new StringBuilder(entrada).reverse().toString();
-            //mostrar por pantalla
-            System.out.println("Así es la frase introducida al principio: ");
-            System.out.println(entrada);
-            System.out.println("Así es la frase con el .reverse() aplicado: ");
-            System.out.println(salida);
+        System.out.println("Introduce año y obra. (en ese orden). ");
+        while (leer.hasNext()) {
+            System.out.println("Introduce un año: ");
+            anio = leer.nextInt();
+            leer.nextLine();
 
-            //si la entrada es igual que la salida si es palíndroma
-            if (entrada.equals(salida)) {
-                System.out.println("SI (es palíndroma)");
+            anioMasReciente = Integer.MAX_VALUE;
+            cadaUno = true;
+            primeraObra = null;
+            for (int i = leer.nextInt(); i > 0; i--) {
+                int anioActual;
+                String obraActual;
+                System.out.println("Introduce un año: ");
+                anioActual = leer.nextInt();
+                System.out.println("Introduce una obra: ");
+                obraActual = leer.nextLine();
+                boolean mayorQuePrimeraObra = anioActual >= anio;
+                if (mayorQuePrimeraObra && (anioActual - anio < anioMasReciente)) {
+                    primeraObra = obraActual;
+                    anioMasReciente = anioActual - anio;
+                }//fin if
+                cadaUno = cadaUno && mayorQuePrimeraObra;
+            }//fin for
+            if (cadaUno) {
+                System.out.println("TODAS");
             } else {
-                System.out.println("NO (no es palíndroma)");
+                if (primeraObra == null) {
+                    System.out.println("NINGUNA");
+                } else {
+                    System.out.println(primeraObra.trim());
+                    /*
+                    Descripción
+                    Método que elimina los caracteres blancos iniciales y finales
+                    de la cadena, devolviendo una copia de la misma.
+                     */
+                }
             }
-            entrada = br.readLine();
         }//fin while
     }//fin main
 }//fin class
