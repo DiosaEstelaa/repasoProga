@@ -20,10 +20,10 @@ import java.util.HashMap;
  *
  * @author DAW
  */
-public class JavaOrdinariaRepaso {
+public class JavaOrdinariaRepaso_Antonio {
 
-    public static ArrayList<Registro> leer(File f) throws FileNotFoundException, IOException {
-        ArrayList<Registro> registros = new ArrayList<Registro>();
+    public static ArrayList<Registro_Antonio> leer(File f) throws FileNotFoundException, IOException {
+        ArrayList<Registro_Antonio> registros = new ArrayList<Registro_Antonio>();
         for (File file : f.listFiles()) {
 
             if (file.isDirectory()) {
@@ -40,7 +40,7 @@ public class JavaOrdinariaRepaso {
                         String[] celdas = datos.split(";");
                         if (celdas.length > 1) {
                             if (!celdas[3].equals("FUEGOS")) {
-                                Registro r1 = new Registro(celdas[0], celdas[1], celdas[2], celdas[3], celdas[4], celdas[5], celdas[6], celdas[7], celdas[8], celdas[9], celdas[10]);
+                                Registro_Antonio r1 = new Registro_Antonio(celdas[0], celdas[1], celdas[2], celdas[3], celdas[4], celdas[5], celdas[6], celdas[7], celdas[8], celdas[9], celdas[10]);
                                 registros.add(r1);
                                 //System.out.println(registros);
                             }
@@ -64,7 +64,7 @@ public class JavaOrdinariaRepaso {
         return registros;
     }
 
-    public static void registroMasGrande(ArrayList<Registro> registros) {
+    public static void registroMasGrande(ArrayList<Registro_Antonio> registros) {
         try {
             int totalFuegos = 0;
             int totaldConstruccion = 0;
@@ -73,7 +73,7 @@ public class JavaOrdinariaRepaso {
             int totalIncidentesDiversos = 0;
             int totalSalidasSinIntervencion = 0;
             int totalServiciosVarios = 0;
-            for (Registro r : registros) {
+            for (Registro_Antonio r : registros) {
                 totalFuegos += r.getNumfuego();
                 totaldConstruccion += r.getdConstruccion();
                 totalSalvamentosyRescates += r.getSalvamentosyrescates();
@@ -130,7 +130,7 @@ public class JavaOrdinariaRepaso {
         System.out.println("**************************************");
     }
 
-    public static void registroMasPequeno(ArrayList<Registro> registros) {
+    public static void registroMasPequeno(ArrayList<Registro_Antonio> registros) {
         try {
             int totalFuegos = 0;
             int totaldConstruccion = 0;
@@ -139,7 +139,7 @@ public class JavaOrdinariaRepaso {
             int totalIncidentesDiversos = 0;
             int totalSalidasSinIntervencion = 0;
             int totalServiciosVarios = 0;
-            for (Registro r : registros) {
+            for (Registro_Antonio r : registros) {
                 totalFuegos += r.getNumfuego();
                 totaldConstruccion += r.getdConstruccion();
                 totalSalvamentosyRescates += r.getSalvamentosyrescates();
@@ -195,10 +195,10 @@ public class JavaOrdinariaRepaso {
         System.out.println("**************************************");
     }
 
-    public static void intervencionesPorMes(ArrayList<Registro> registros) {
+    public static void intervencionesPorMes(ArrayList<Registro_Antonio> registros) {
         try {
             HashMap<String, Integer> mes = new HashMap<String, Integer>();
-            for (Registro m : registros) {
+            for (Registro_Antonio m : registros) {
                 if (mes.containsKey(m.getMes())) {
                     mes.replace(m.getMes(), m.getTotal() + mes.get(m.getMes()));
                 } else {
@@ -217,10 +217,10 @@ public class JavaOrdinariaRepaso {
         System.out.println("**************************************");
     }
 
-    public static void intervencionesPorAno(ArrayList<Registro> registros) {
+    public static void intervencionesPorAno(ArrayList<Registro_Antonio> registros) {
         try {
             HashMap<Integer, Integer> ano = new HashMap<Integer, Integer>();
-            for (Registro a : registros) {
+            for (Registro_Antonio a : registros) {
                 if (ano.containsKey(a.getYear())) {
                     ano.replace(a.getYear(), a.getTotal() + ano.get(a.getYear()));
                 } else {
@@ -238,10 +238,10 @@ public class JavaOrdinariaRepaso {
         System.out.println("**************************************");
     }
 
-    public static void intervencionesMediaPorMesYaño(ArrayList<Registro> registros) {
+    public static void intervencionesMediaPorMesYaño(ArrayList<Registro_Antonio> registros) {
         try {
             HashMap<String, Integer> media = new HashMap<String, Integer>();
-            for (Registro d : registros) {
+            for (Registro_Antonio d : registros) {
 
                 if (media.containsKey(d.getYear() + "-" + d.getMes())) {
                     media.replace(d.getYear() + "-" + d.getMes(), d.getTotal() + media.get(d.getYear() + "-" + d.getMes()));
@@ -261,12 +261,12 @@ public class JavaOrdinariaRepaso {
 
     }
 
-    public static void intervencionesPorDistrito(ArrayList<Registro> registros) {
+    public static void intervencionesPorDistrito(ArrayList<Registro_Antonio> registros) {
         try {
             HashMap<String, Integer> distritos = new HashMap<String, Integer>();
             //String totalDistritos = " ";
             //int totalIntervenciones = 0;
-            for (Registro d : registros) {
+            for (Registro_Antonio d : registros) {
 
                 if (distritos.containsKey(d.getDistrito())) {
                     distritos.replace(d.getDistrito(), d.getTotal() + distritos.get(d.getDistrito()));
@@ -288,7 +288,7 @@ public class JavaOrdinariaRepaso {
     public static void main(String[] args) {
         try {
             File f = new File("F:\\programacion\\Bomberos\\Bomberos");
-            ArrayList<Registro> guardarResultado = leer(f);
+            ArrayList<Registro_Antonio> guardarResultado = leer(f);
             registroMasGrande(guardarResultado);
             registroMasPequeno(guardarResultado);
             intervencionesPorMes(guardarResultado);

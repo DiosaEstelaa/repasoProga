@@ -9,7 +9,7 @@ package javaordinariarepaso;
  *
  * @author DAW
  */
-public class Registro {
+public class Registro_Antonio {
 
     private String distrito;
     private String mes;
@@ -23,7 +23,7 @@ public class Registro {
     private int serviciosvarios;
     private int total;
 
-    public Registro(String year, String mes, String distrito, String numfuego, String dConstruccion, String salvamentosyrescates,
+    public Registro_Antonio(String year, String mes, String distrito, String numfuego, String dConstruccion, String salvamentosyrescates,
             String danosporagua, String incidentesdiversos, String salidassinintervencion, String serviciosvarios, String total) {
         this.distrito = distrito;
         this.mes = mes;
