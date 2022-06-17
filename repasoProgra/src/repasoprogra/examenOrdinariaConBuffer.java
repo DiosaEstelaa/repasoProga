@@ -19,8 +19,6 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import static java.util.stream.Collectors.toMap;
 import java.util.stream.Stream;
-import static javaordinariarepaso.JavaOrdinariaRepaso_Antonio.leer;
-import javaordinariarepaso.Registro_Antonio;
 
 /**
  *
